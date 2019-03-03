@@ -1,0 +1,104 @@
+<div class="row h-100 mx-0 justify-content-center">
+	<div class="col-6 py-5">
+		<div class="row">
+			<div class="col bg-white align-self-start shadow-2 rounded py-5">
+				<p class="h5 text-center mb-3" *ngIf="!editing">Añadir Compra</p>
+				<p class="h5 text-center mb-3" *ngIf="editing">Editar Compra</p>
+
+				<div class="row mb-3">
+					<div class="col-4 label">
+						<p class="h5 text-right text">Precio Total €:</p>
+					</div>
+					<div class="col-4 input-container">
+						<input type="number" step="0.01" class="input-text" [(ngModel)]="purchase.totalPrice" placeholder="Precio Total">
+						<span></span>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-4 label">
+						<p class="h5 text-right text">Dinero restante €:</p>
+					</div>
+					<div class="col-4 input-container">
+						<input type="number" step="0.01" class="input-text" [(ngModel)]="purchase.moneyLeft" placeholder="Dinero restante">
+						<span></span>
+					</div>
+				</div>
+				<div class="row mb-3" *ngIf="editing">
+					<div class="col-4 label">
+						<p class="h5 text-right text">Fecha:</p>
+					</div>
+					<div class="col-4 input-container">
+						<span class="h5 mb-0">{{purchase.date | date:'dd/MM/yyyy'}}</span>
+					</div>
+				</div>
+				<div class="row mb-3" *ngIf="editing">
+					<div class="col-4 label">
+						<p class="h5 text-right text">Terminada:</p>
+					</div>
+					<div class="col-4 input-container">
+						<span class="h5 mb-0">{{purchase.finished ? 'Sí' : 'No'}}</span>
+					</div>
+				</div>
+
+				<div class="row justify-content-center" *ngIf="!editing">
+					<div class="col-3 input-container">
+						<div class="input-button" (click)="startPurchase()"><p>Empezar Compra</p></div>
+					</div>
+				</div>
+				<div class="row justify-content-center" *ngIf="editing && !purchase.finished">
+					<div class="col-3 input-container">
+						<div class="input-button" (click)="updatePurchase()"><p>Actualizar</p></div>
+					</div>
+					<div class="col-1">
+					</div>
+					<div class="col-3 input-container">
+						<div class="input-button" (click)="endPurchase()"><p>Terminar Compra</p></div>
+					</div>
+					<div class="col-1">
+					</div>
+					<div class="col-3 input-container">
+						<div class="input-button bg-danger" (click)="removePurchase()"><p>Eliminar</p></div>
+					</div>
+				</div>
+
+				<p class="error my-3" *ngIf="error">{{error}}</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col bg-white align-self-start mt-5 shadow-2 rounded py-5 px-5" *ngIf="editing">
+				<div class="row mb-4">
+					<div class="offset-4 col-4">
+						<p class="h5 text-center mb-3">Productos</p>
+					</div>
+					<div class="col-4 input-container" *ngIf="!purchase.finished">
+						<a [routerLink]="['/admin/purchase/' + purchase._id + '/item/add']" class="input-button"><p>+ Añadir Productos</p></a>
+					</div>
+				</div>
+
+				<div class="row rounded shadow-1 item align-items-center justify-content-between mb-3 py-2" *ngFor="let item of purchase.items">
+					<div class="col-auto">
+						<a class="input-container" [routerLink]="['/admin/purchase/' + purchase._id + '/item/' + item.item._id]">
+							<span class="h4 mb-0">{{item.item.name}}</span>
+						</a>
+					</div>
+					<div class="col-6">
+						<div class="row justify-content-end align-items-center">
+							<div class="col-auto">
+								<span class="h5 mb-0">Cantidad {{item.quantity}}</span>
+							</div>
+							<div class="col-4">
+								<a class="input-container" [routerLink]="['/admin/purchase/' + purchase._id + '/item/' + item.item._id]">
+									<div class="input-button"><p>Detalles</p></div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<p class="error my-3" *ngIf="error">{{error}}</p>
+			</div>
+		</div>
+	</div>
+
+</div>

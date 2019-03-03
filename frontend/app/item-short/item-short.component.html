@@ -1,0 +1,54 @@
+<div class="row rounded shadow-2 mx-1 my-2 main">
+	<div class="col p-3">
+		<a [routerLink]="" (click)="_view()">
+			<div class="row mb-1 mx-0">
+				<div class="col text-center h4">
+					{{item.name}}
+				</div>
+			</div>
+			<div class="row mb-1 mx-0">
+				<div class="offset-1 col-10">
+					<img class="img-responsive w-100" [src]="item.icon">
+				</div>
+			</div>
+		</a>
+		<div class="row info mx-0">
+			<div class="col text-center">
+				<span class="center">&#8364;{{item.price * (1 + item.sellPercent / 100) | number: '1.2-2'}}</span>
+			</div>
+		</div>
+		<div class="row mb-1 info mx-0">
+			<div class="col text-center">
+				<span class="center">Cant. {{item.quantity}}</span>
+			</div>
+		</div>
+		<div *ngIf="type === 'transaction'" class="row mx-0">
+			<div class="col">
+				<div class="input-group">
+					<input *ngIf="item.type !== 'static'" type="number" [(ngModel)]="quantity" class="form-control" [max]="item.quantity" [min]="item.step">
+					<div *ngIf="item.type !== 'static'" class="input-group-append">
+						<a class="input-container" [routerLink]="" (click)="_transaction()" [class.disabled]="item.quantity <= 0">
+							<div class="input-button px-2" *ngIf="item.type === 'consumable'"><p>Comprar</p></div>
+							<div class="input-button px-2" *ngIf="item.type === 'lendable'"><p>Prestar</p></div>
+						</a>
+					</div>
+					<a *ngIf="item.type === 'static'" class="input-container" [routerLink]="" (click)="_view()">
+						<div class="input-button"><p>Detalles</p></div>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-between mx-0 center-childs" *ngIf="type === 'edit'">
+			<div class="col-auto">
+				<a class="input-container" [routerLink]="" (click)="_view()">
+					<div class="input-button px-2"><p>Editar</p></div>
+				</a>
+			</div>
+			<div class="col-auto">
+				<a [routerLink]="" (click)="_remove()">
+					<img src="assets/waste-bin.svg" class="bin">
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

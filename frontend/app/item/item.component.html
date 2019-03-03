@@ -1,0 +1,44 @@
+<div class="row h-100 mx-0 justify-content-center">
+	<div class="col-6 bg-white align-self-start my-5 shadow-2 rounded py-5">
+		<p class="h5 text-center mb-3">{{item.name}}</p>
+		<div class="row justify-content-center">
+			<div class="col-7">
+				<div class="row mb-3 justify-content-center">
+					<div class="col label">
+						<p class="h5 text-left text">Código:</p>
+					</div>
+					<div class="col input-container">
+						<span class="text-right">{{item.code}}</span>
+					</div>
+				</div>
+				<div class="row mb-3 justify-content-center">
+					<div class="col label">
+						<p class="h5 text-left text">Tipo:</p>
+					</div>
+					<div class="col input-container" [ngSwitch]="item.type">
+						<span class="text-right" *ngSwitchCase="'consumable'">Consumible</span>
+						<span class="text-right" *ngSwitchCase="'lendable'">Prestable</span>
+						<span class="text-right" *ngSwitchCase="'static'">Estático</span>
+					</div>
+				</div>
+				<div class="row mb-3 justify-content-center">
+					<div class="col label">
+						<p class="h5 text-left text">Cantidad:</p>
+					</div>
+					<div class="col input-container">
+						<span class="text-right">{{item.quantity}}</span>
+					</div>
+				</div>
+				<div class="row mb-3 justify-content-center" *ngIf="item.type === 'consumable'">
+					<div class="col label">
+						<p class="h5 text-left text">Precio:</p>
+					</div>
+					<div class="col input-container">
+						<span class="text-right">{{item.price * (1 + item.sellPercent / 100) | number: '1.2-2'}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p class="error my-3" *ngIf="error">{{error}}</p>
+	</div>
+</div>

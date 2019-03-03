@@ -1,0 +1,65 @@
+{
+	"name": "inventoryieeesb",
+	"version": "1.0.0",
+	"description": "",
+	"main": "server.js",
+	"dependencies": {
+		"@angular/animations": "~7.0.0",
+		"@angular/common": "~7.0.0",
+		"@angular/compiler": "~7.0.0",
+		"@angular/core": "~7.0.0",
+		"@angular/forms": "~7.0.0",
+		"@angular/http": "~7.0.0",
+		"@angular/platform-browser": "~7.0.0",
+		"@angular/platform-browser-dynamic": "~7.0.0",
+		"@angular/router": "~7.0.0",
+		"@ng-bootstrap/ng-bootstrap": "^4.0.0",
+		"@ngx-translate/core": "^11.0.1",
+		"axios": "^0.18.0",
+		"celebrate": "^8.0.2",
+		"connect-mongo": "^2.0.2",
+		"core-js": "^2.5.4",
+		"decimal.js": "^10.1.1",
+		"eslint": "^5.6.0",
+		"eslint-config-airbnb-base": "^13.1.0",
+		"eslint-plugin-import": "^2.14.0",
+		"express": "^4.16.4",
+		"express-session": "^1.15.6",
+		"mongoose": "^5.3.14",
+		"mongoose-float": "^1.0.3",
+		"morgan": "^1.9.1",
+		"paypal-rest-sdk": "^2.0.0-rc.1",
+		"rxjs": "~6.3.3",
+		"zone.js": "~0.8.26"
+	},
+	"devDependencies": {
+		"@angular-devkit/build-angular": "~0.10.0",
+		"@angular/cli": "~7.0.3",
+		"@angular/compiler-cli": "~7.0.0",
+		"@angular/language-service": "~7.0.0",
+		"@types/jasmine": "~2.8.8",
+		"@types/jasminewd2": "~2.0.3",
+		"@types/node": "^8.10.40",
+		"codelyzer": "~4.5.0",
+		"jasmine-core": "~2.99.1",
+		"jasmine-spec-reporter": "~4.2.1",
+		"protractor": "~5.4.0",
+		"ts-node": "~7.0.0",
+		"tslint": "~5.11.0",
+		"typescript": "~3.1.1"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node server.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/IEEEsb/InventoryIEEEsb.git"
+	},
+	"author": "",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/IEEEsb/InventoryIEEEsb/issues"
+	},
+	"homepage": "https://github.com/IEEEsb/InventoryIEEEsb#readme"
+}

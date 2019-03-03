@@ -1,0 +1,83 @@
+<div class="row h-100 mx-0 justify-content-center">
+	<div class="col-5 py-5">
+		<div class="row bg-white shadow-2 rounded py-4">
+			<div class="col align-self-start">
+				<p class="h5 text-center">{{user.name}}</p>
+				<div class="row justify-content-center mt-2">
+					<div class="col-7">
+						<div class="row justify-content-center">
+							<div class="col label">
+								<p class="h5 text-right text">Saldo:</p>
+							</div>
+							<div class="col input-container">
+								<span class="text-left">{{user.money}} €</span>
+							</div>
+						</div>
+						<div class="row justify-content-center">
+							<div class="col label">
+								<p class="h5 text-right text">Roles:</p>
+							</div>
+							<div class="col input-container">
+								<span class="text-left">{{user.roles}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<p class="error my-3" *ngIf="error">{{error}}</p>
+			</div>
+		</div>
+		<div class="row bg-white mt-4 shadow-2 rounded py-4">
+			<div class="col">
+				<p class="h5 text-center">Insertar Dinero con Paypal</p>
+				<div class="row mx-0 justify-content-center mt-3">
+					<div class="col-8">
+						<input type="number" [(ngModel)]="money" class="form-control" step="1" [min]="0">
+					</div>
+				</div>
+				<div class="row justify-content-center mt-3">
+					<div class="col-auto">
+						<span i18n>Tarifa: {{fee}} <b>Total: </b>{{fee + money | number: '1.2-2'}}</span>
+					</div>
+				</div>
+				<div class="row mx-0 justify-content-center mt-3">
+					<div class="col-auto">
+						<div class="paypal-button"></div>
+					</div>
+				</div>
+				<p class="error my-3" *ngIf="error">{{error}}</p>
+			</div>
+		</div>
+		<div class="row bg-white mt-4 shadow-2 rounded py-4 px-3">
+			<div class="col">
+				<p class="h5 text-center">Historial de Compras</p>
+				<div class="row rounded shadow-1 item align-items-center justify-content-between mt-3 py-2" *ngFor="let purchase of purchases">
+					<div class="col">
+						<a class="input-container" [routerLink]="['/inventory/' + purchase.data.item._id]">
+							<span class="h4 mb-0 text-center">{{purchase.data.item.name}}</span>
+						</a>
+					</div>
+					<div class="col">
+						<span class="h5 mb-0 text-center">Cantidad {{purchase.data.quantity}}</span>
+					</div>
+					<div class="col">
+						<span class="h5 mb-0 text-center">{{purchase.data.finalPrice | currency:'EUR':true:'1.2-2'}}</span>
+					</div>
+					<div class="col">
+						<span class="h5 mb-0 text-center">{{purchase.date | date:'dd/MM HH:mm'}}</span>
+					</div>
+					<div class="col-3">
+						<a class="input-container" [class.disabled]="purchase.cancelled" [routerLink]="" (click)="cancel(purchase._id)">
+							<div class="input-button"><p>Cancelar</p></div>
+						</a>
+					</div>
+				</div>
+				<div class="row justify-content-center mt-3">
+					<div class="col-auto">
+						<app-pagination [items]="rawPurchases" (itemsChange)="purchases=$event" pageSize="10"></app-pagination>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

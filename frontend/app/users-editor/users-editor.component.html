@@ -1,0 +1,40 @@
+<div class="container-fluid main p-5">
+	<div class="row justify-content-between mb-3">
+		<div class="col-auto">
+			<div class="row">
+				<div class="col-auto">
+					<span class="h2">Usuarios</span>
+				</div>
+				<div class="col">
+					<app-search [items]="rawUsers" [keys]="['name']" (itemsChange)="users = $event"></app-search>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-6">
+			<div class="row rounded shadow-1 item align-items-center justify-content-between mb-3" *ngFor="let user of users">
+				<div class="col-auto">
+					<a class="input-container" [routerLink]="['/admin/users/edit/' + user._id]">
+						<span class="h4 mb-0">{{user.name}}</span>
+					</a>
+				</div>
+				<div class="col-6">
+					<div class="row justify-content-end align-items-center">
+						<div class="col-auto">
+							<span class="h5 mb-0">Saldo {{user.money}} €</span>
+						</div>
+						<div class="col-4">
+							<a class="input-container" [routerLink]="['/admin/users/edit/' + user._id]">
+								<div class="input-button"><p>Detalles</p></div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div *ngIf="users.length <= 0">
+			No hay resultados...
+		</div>
+	</div>
+</div>

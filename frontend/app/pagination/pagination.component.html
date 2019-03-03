@@ -1,0 +1,19 @@
+<nav aria-label="Page navigation example" *ngIf="items.length > 0">
+	<ul class="pagination">
+		<li class="page-item">
+			<a class="page-link" [routerLink]="" (click)="prevPage()" [class.disabled]="page <= 1">
+				<span>Anterior</span>
+			</a>
+		</li>
+		<li class="page-item" *ngIf="numbers[0] !== 1"><a class="page-link" [routerLink]="" (click)="goPage(1)">{{1}}</a></li>
+		<li class="page-item" *ngIf="numbers[0] - 1 > 1"><span class="page-link">...</span></li>
+		<li class="page-item" *ngFor="let i of numbers" [class.active]="i === page"><a class="page-link" [routerLink]="" (click)="goPage(i)">{{i}}</a></li>
+		<li class="page-item" *ngIf="pages - numbers[numbers.length - 1] > 1"><span class="page-link">...</span></li>
+		<li class="page-item" *ngIf="numbers[numbers.length - 1] !== pages"><a class="page-link" [routerLink]="" (click)="goPage(pages)">{{pages}}</a></li>
+		<li class="page-item">
+			<a class="page-link" [routerLink]="" (click)="nextPage()" [class.disabled]="page >= pages">
+				<span>Siguiente</span>
+			</a>
+		</li>
+	</ul>
+</nav>

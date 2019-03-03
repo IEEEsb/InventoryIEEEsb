@@ -1,0 +1,23 @@
+<div class="row">
+	<div class="col">
+		<div class="input-group">
+			<input type="text" [(ngModel)]="search" (focus)="focused = true" (focusout)="focused = false" class="form-control rounded-bottom-0" [class.rounded-bottom-0]="_words.length > 0">
+			<div class="input-group-append">
+				<a class="input-container" [routerLink]="" (click)="_add()" [class.disabled]="search === ''">
+					<div class="input-button px-2" [class.rounded-bottom-0]="_words.length > 0"><p>Añadir</p></div>
+				</a>
+			</div>
+		</div>
+		<div class="row w-100 position-absolute z-index-2 drop pb-4" *ngIf="search.length > 0 || focused">
+			<div class="col bg-white shadow-2 rounded-bottom" *ngIf="_words.length > 0">
+				<div class="" *ngFor="let word of _words">
+					<a class="row justify-content-center py-2 border-bottom" [routerLink]="" (click)="select(word)">
+						<div class="col-auto">
+							{{word}}
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
