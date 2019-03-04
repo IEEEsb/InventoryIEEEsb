@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
-import { LoadingService } from './loading.service';
+import { LoadingService } from 'angular-ieeesb-lib';
 
 @Injectable({
 	providedIn: 'root'

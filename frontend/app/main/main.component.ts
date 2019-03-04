@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UserService } from '../user.service';
-import { UtilsService } from '../utils.service';
+import { UtilsService } from 'angular-ieeesb-lib';
 
 const config = require('../../../config.json');
 
@@ -17,8 +17,7 @@ export class MainComponent implements OnInit {
 
 	user;
 
-	constructor(private userService: UserService, private utilsService: UtilsService, private router: Router) {
-	}
+	constructor(private userService: UserService, private utilsService: UtilsService, private router: Router) { }
 
 	ngOnInit() {
 		this.userService.getLoggedUser().subscribe((user) => {

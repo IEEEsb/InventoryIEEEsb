@@ -27,14 +27,9 @@
 				<div class="input-group">
 					<input *ngIf="item.type !== 'static'" type="number" [(ngModel)]="quantity" class="form-control" [max]="item.quantity" [min]="item.step">
 					<div *ngIf="item.type !== 'static'" class="input-group-append">
-						<a class="input-container" [routerLink]="" (click)="_transaction()" [class.disabled]="item.quantity <= 0">
-							<div class="input-button px-2" *ngIf="item.type === 'consumable'"><p>Comprar</p></div>
-							<div class="input-button px-2" *ngIf="item.type === 'lendable'"><p>Prestar</p></div>
-						</a>
+						<ieeesb-button [label]="item.type === 'consumable' ? 'Comprar' : 'Prestar'" (click)="_transaction()"></ieeesb-button>
 					</div>
-					<a *ngIf="item.type === 'static'" class="input-container" [routerLink]="" (click)="_view()">
-						<div class="input-button"><p>Detalles</p></div>
-					</a>
+					<ieeesb-button label="Detalles" (click)="_view()" *ngIf="item.type === 'static'"></ieeesb-button>
 				</div>
 			</div>
 		</div>

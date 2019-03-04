@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UserService } from './user.service';
-import { LoadingService } from './loading.service';
+import { UtilsService, LoadingService } from 'angular-ieeesb-lib';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,12 +24,12 @@ import { ItemComponent } from './item/item.component';
 import { UsersEditorComponent } from './users-editor/users-editor.component';
 import { UserEditorComponent } from './user-editor/user-editor.component';
 import { ProfileComponent } from './profile/profile.component';
-import { PaginationComponent } from './pagination/pagination.component';
-import { SearchDropdownComponent } from './search-dropdown/search-dropdown.component';
 import { SearchComponent } from './search/search.component';
 import { PurchasesEditorComponent } from './purchases-editor/purchases-editor.component';
 import { PurchaseEditorComponent } from './purchase-editor/purchase-editor.component';
 import { PurchaseItemEditorComponent } from './purchase-item-editor/purchase-item-editor.component';
+
+import { AngularIEEEsbLibModule } from 'angular-ieeesb-lib'
 
 @NgModule({
 	declarations: [
@@ -48,8 +48,6 @@ import { PurchaseItemEditorComponent } from './purchase-item-editor/purchase-ite
 		UsersEditorComponent,
 		UserEditorComponent,
 		ProfileComponent,
-		PaginationComponent,
-		SearchDropdownComponent,
 		SearchComponent,
 		PurchasesEditorComponent,
 		PurchaseEditorComponent,
@@ -61,10 +59,13 @@ import { PurchaseItemEditorComponent } from './purchase-item-editor/purchase-ite
 		HttpClientModule,
 		FormsModule,
 		ReactiveFormsModule,
+		AngularIEEEsbLibModule,
+		AngularIEEEsbLibModule.forRoot(),
 		NgbModule
 	],
 	providers: [
 		UserService,
+		UtilsService,
 		LoadingService,
 	],
 	bootstrap: [AppComponent]

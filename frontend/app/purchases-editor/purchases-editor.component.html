@@ -8,9 +8,7 @@
 			</div>
 		</div>
 		<div class="col-3">
-			<a class="input-container link" routerLink="/admin/purchase/add">
-				<div class="input-button"><p>+ Añadir Compra</p></div>
-			</a>
+			<ieeesb-button label="+ Añadir Compra" link="/admin/purchase/add"></ieeesb-button>
 		</div>
 	</div>
 	<div class="row justify-content-center">
@@ -41,7 +39,7 @@
 	</div>
 	<div class="row justify-content-center mt-3">
 		<div class="col-auto">
-			<app-pagination [items]="rawPurchases" (itemsChange)="purchases=$event" pageSize="10"></app-pagination>
+			<ieeesb-pagination [items]="rawPurchases" (itemsChange)="purchases=$event" pageSize="10"></ieeesb-pagination>
 		</div>
 	</div>
 </div>

@@ -2,52 +2,20 @@
 	<div class="col-6 bg-white align-self-start my-5 shadow-2 rounded py-5">
 		<p class="h5 text-center mb-3" *ngIf="!purchase.finished && !editing">Añadir Producto</p>
 
-		<div class="row mb-3" *ngIf="!purchase.finished && !editing">
-			<div class="col-4 label">
-				<p class="h5 text-right text">Código:</p>
-			</div>
-			<div class="col-4 input-container">
-				<input type="text" class="input-text" (keyup.enter)="search()" [(ngModel)]="code" placeholder="Código">
-				<span></span>
-			</div>
-		</div>
+		<ieeesb-input [(item)]="code" (enter)="search()" label="Código"></ieeesb-input>
 
 		<p class="h5 text-center mb-3" *ngIf="item">{{item.name}}</p>
-		<div class="row mb-3" *ngIf="item">
-			<div class="col-4 label">
-				<p class="h5 text-right text">Cantidad Restante:</p>
-			</div>
-			<div class="col-4 input-container">
-				<input type="number" step="1" class="input-text" [(ngModel)]="purchaseItem.quantityLeft" placeholder="Cantidad Restante">
-				<span></span>
-			</div>
-		</div>
-		<div class="row mb-3" *ngIf="item">
-			<div class="col-4 label">
-				<p class="h5 text-right text">Cantidad Comprada:</p>
-			</div>
-			<div class="col-4 input-container">
-				<input type="number" step="1" class="input-text" [(ngModel)]="purchaseItem.quantity" placeholder="Cantidad Comprada">
-				<span></span>
-			</div>
-		</div>
-		<div class="row mb-3" *ngIf="item">
-			<div class="col-4 label">
-				<p class="h5 text-right text">Precio:</p>
-			</div>
-			<div class="col-4 input-container">
-				<input type="number" step="1" class="input-text" [(ngModel)]="purchaseItem.price" placeholder="Precio">
-				<span></span>
-			</div>
-		</div>
+		<ieeesb-input [(item)]="purchaseItem.quantityLeft" label="Cantidad Restante"></ieeesb-input>
+		<ieeesb-input [(item)]="purchaseItem.quantity" label="Cantidad Comprada"></ieeesb-input>
+		<ieeesb-input [(item)]="purchaseItem.price" label="Precio"></ieeesb-input>
 		<div class="row justify-content-center" *ngIf="!editing && item && !purchase.finished">
 			<div class="col-3 input-container">
-				<div class="input-button" (click)="addItem()"><p>Añadir</p></div>
+				<ieeesb-button label="Añadir" (click)="addItem()"></ieeesb-button>
 			</div>
 		</div>
 		<div class="row justify-content-center" *ngIf="editing && item && !purchase.finished">
 			<div class="col-3 input-container">
-				<div class="input-button" (click)="updateItem()"><p>Actualizar</p></div>
+				<ieeesb-button label="Actualizar" (click)="updateItem()"></ieeesb-button>
 			</div>
 		</div>
 	</div>

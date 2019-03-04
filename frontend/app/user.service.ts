@@ -3,8 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Subject, BehaviorSubject, throwError } from 'rxjs';
 import { map, tap, delay, catchError } from 'rxjs/operators';
 
-import { LoadingService } from './loading.service';
-import { UtilsService } from './utils.service';
+import { LoadingService } from 'angular-ieeesb-lib';
+import { UtilsService } from 'angular-ieeesb-lib';
 
 import { User } from '../../models/User';
 import { Transaction } from '../../models/Transaction';

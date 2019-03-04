@@ -1,6 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 
-import { LoadingService } from './loading.service';
+import { LoadingService } from 'angular-ieeesb-lib';
 
 @Component({
 	selector: 'app-root',

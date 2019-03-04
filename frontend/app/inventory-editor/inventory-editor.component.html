@@ -6,14 +6,12 @@
 					<span class="h2">Inventario</span>
 				</div>
 				<div class="col">
-					<app-search [items]="rawItems" [keys]="['tags', 'name']" (itemsChange)="items = $event"></app-search>
+					<ieeesb-search [items]="rawItems" [keys]="['tags', 'name']" (itemsChange)="items = $event"></ieeesb-search>
 				</div>
 			</div>
 		</div>
 		<div class="col-3">
-			<a class="input-container link" routerLink="/admin/inventory/add">
-				<div class="input-button"><p>+ Añadir Producto</p></div>
-			</a>
+			<ieeesb-button label="+ Añadir Producto" link="/admin/inventory/add"></ieeesb-button>
 		</div>
 	</div>
 	<div class="row items">

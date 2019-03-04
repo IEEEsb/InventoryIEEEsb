@@ -3,9 +3,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Subject, BehaviorSubject, throwError } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 
-import { LoadingService } from './loading.service';
+import { LoadingService } from 'angular-ieeesb-lib';
 import { UserService } from './user.service';
-import { UtilsService } from './utils.service';
+import { UtilsService } from 'angular-ieeesb-lib';
 
 import { Item } from '../../models/Item';
 import { Purchase } from '../../models/Purchase';

@@ -3,7 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { Observable } from 'rxjs';
 
 import { UserService } from './user.service';
-import { UtilsService } from './utils.service';
+import { UtilsService } from 'angular-ieeesb-lib';
 
 const config = require('../../config.json');
 

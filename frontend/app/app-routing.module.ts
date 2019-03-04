@@ -41,7 +41,7 @@ const routes: Routes = [
 			{ path: 'purchase/:purchaseId/item/add', component: PurchaseItemEditorComponent },
 			{ path: 'purchase/:purchaseId/item/:itemId', component: PurchaseItemEditorComponent },
 			{ path: 'users', component: UsersEditorComponent },
-			{ path: 'users/edit/:userId', component: UserEditorComponent },
+			{ path: 'users/:userId', component: UserEditorComponent },
 			{ path: 'login', component: LoginComponent },
 		]
 	}

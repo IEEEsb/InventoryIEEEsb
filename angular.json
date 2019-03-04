@@ -37,7 +37,9 @@
 							"frontend/assets/Lato.css"
 						],
 						"scripts": [
-							"frontend/assets/bootstrap.min.js"
+							"frontend/assets/bootstrap.min.js",
+							"frontend/assets/jquery-3.3.1.slim.min.js",
+							"frontend/assets/popper.min.js"
 						]
 					},
 					"configurations": {

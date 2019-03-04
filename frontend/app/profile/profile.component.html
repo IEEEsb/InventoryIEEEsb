@@ -3,24 +3,12 @@
 		<div class="row bg-white shadow-2 rounded py-4">
 			<div class="col align-self-start">
 				<p class="h5 text-center">{{user.name}}</p>
+
+
 				<div class="row justify-content-center mt-2">
 					<div class="col-7">
-						<div class="row justify-content-center">
-							<div class="col label">
-								<p class="h5 text-right text">Saldo:</p>
-							</div>
-							<div class="col input-container">
-								<span class="text-left">{{user.money}} €</span>
-							</div>
-						</div>
-						<div class="row justify-content-center">
-							<div class="col label">
-								<p class="h5 text-right text">Roles:</p>
-							</div>
-							<div class="col input-container">
-								<span class="text-left">{{user.roles}}</span>
-							</div>
-						</div>
+						<ieeesb-input [item]="user.money | number: '1.2-2'" label="Saldo €" [editing]="false"></ieeesb-input>
+						<ieeesb-input [item]="user.roles" label="Roles" [editing]="false"></ieeesb-input>
 					</div>
 				</div>
 				<p class="error my-3" *ngIf="error">{{error}}</p>
@@ -73,7 +61,7 @@
 				</div>
 				<div class="row justify-content-center mt-3">
 					<div class="col-auto">
-						<app-pagination [items]="rawPurchases" (itemsChange)="purchases=$event" pageSize="10"></app-pagination>
+						<ieeesb-pagination [items]="rawPurchases" (itemsChange)="purchases=$event" pageSize="10"></ieeesb-pagination>
 					</div>
 				</div>
 			</div>

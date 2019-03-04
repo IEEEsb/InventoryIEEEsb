@@ -5,59 +5,29 @@
 				<p class="h5 text-center mb-3" *ngIf="!editing">Añadir Compra</p>
 				<p class="h5 text-center mb-3" *ngIf="editing">Editar Compra</p>
 
-				<div class="row mb-3">
-					<div class="col-4 label">
-						<p class="h5 text-right text">Precio Total €:</p>
-					</div>
-					<div class="col-4 input-container">
-						<input type="number" step="0.01" class="input-text" [(ngModel)]="purchase.totalPrice" placeholder="Precio Total">
-						<span></span>
-					</div>
-				</div>
-				<div class="row mb-3">
-					<div class="col-4 label">
-						<p class="h5 text-right text">Dinero restante €:</p>
-					</div>
-					<div class="col-4 input-container">
-						<input type="number" step="0.01" class="input-text" [(ngModel)]="purchase.moneyLeft" placeholder="Dinero restante">
-						<span></span>
-					</div>
-				</div>
-				<div class="row mb-3" *ngIf="editing">
-					<div class="col-4 label">
-						<p class="h5 text-right text">Fecha:</p>
-					</div>
-					<div class="col-4 input-container">
-						<span class="h5 mb-0">{{purchase.date | date:'dd/MM/yyyy'}}</span>
-					</div>
-				</div>
-				<div class="row mb-3" *ngIf="editing">
-					<div class="col-4 label">
-						<p class="h5 text-right text">Terminada:</p>
-					</div>
-					<div class="col-4 input-container">
-						<span class="h5 mb-0">{{purchase.finished ? 'Sí' : 'No'}}</span>
-					</div>
-				</div>
+				<ieeesb-input [(item)]="purchase.totalPrice" label="Precio Total €"></ieeesb-input>
+				<ieeesb-input [(item)]="purchase.moneyLeft" label="Dinero Restante €"></ieeesb-input>
+				<ieeesb-input [item]="purchase.date | date:'dd/MM/yyyy'" label="Fecha" *ngIf="editing"></ieeesb-input>
+				<ieeesb-input [item]="purchase.finished ? 'Sí' : 'No'" label="Terminada" *ngIf="editing"></ieeesb-input>
 
 				<div class="row justify-content-center" *ngIf="!editing">
 					<div class="col-3 input-container">
-						<div class="input-button" (click)="startPurchase()"><p>Empezar Compra</p></div>
+						<ieeesb-button label="Empezar Compra" (click)="startPurchase()"></ieeesb-button>
 					</div>
 				</div>
 				<div class="row justify-content-center" *ngIf="editing && !purchase.finished">
 					<div class="col-3 input-container">
-						<div class="input-button" (click)="updatePurchase()"><p>Actualizar</p></div>
+						<ieeesb-button label="Actualizar" (click)="updatePurchase()"></ieeesb-button>
 					</div>
 					<div class="col-1">
 					</div>
 					<div class="col-3 input-container">
-						<div class="input-button" (click)="endPurchase()"><p>Terminar Compra</p></div>
+						<ieeesb-button label="Terminar Compra" (click)="endPurchase()"></ieeesb-button>
 					</div>
 					<div class="col-1">
 					</div>
 					<div class="col-3 input-container">
-						<div class="input-button bg-danger" (click)="removePurchase()"><p>Eliminar</p></div>
+						<ieeesb-button label="Eliminar" (click)="removePurchase()" [danger]="true"></ieeesb-button>
 					</div>
 				</div>
 
@@ -88,9 +58,7 @@
 								<span class="h5 mb-0">Cantidad {{item.quantity}}</span>
 							</div>
 							<div class="col-4">
-								<a class="input-container" [routerLink]="['/admin/purchase/' + purchase._id + '/item/' + item.item._id]">
-									<div class="input-button"><p>Detalles</p></div>
-								</a>
+								<ieeesb-button label="Detalles" [link]="'/admin/purchase/' + purchase._id + '/item/' + item.item._id"></ieeesb-button>
 							</div>
 						</div>
 					</div>
