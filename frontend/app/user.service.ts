@@ -156,4 +156,17 @@ export class UserService {
 			catchError(this.utilsService.handleError.bind(this))
 		);
 	}
+
+	cancelUserPurchase(userId, purchaseId) {
+		this.loadingService.setLoading();
+		return this.http.post(`api/user/${userId}/purchase/${purchaseId}/cancel`, {})
+		.pipe(
+			tap((data) => {
+				this.getSelfUser().subscribe();
+				this.getAllSelfPurchases().subscribe();
+				this.loadingService.unsetLoading();
+			}),
+			catchError(this.utilsService.handleError.bind(this))
+		);
+	}
 }

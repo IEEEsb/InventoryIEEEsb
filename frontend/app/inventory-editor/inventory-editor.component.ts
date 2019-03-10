@@ -12,13 +12,13 @@ import { Item } from '../../../models/Item';
 })
 export class InventoryEditorComponent implements OnInit {
 
+	search = "";
 	items: Item[] = [];
-	rawItems: Item[] = [];
 	constructor(private inventoryService: InventoryService, private router: Router) { }
 
 	ngOnInit() {
 		this.inventoryService.getConsumableItems().subscribe((items) => {
-			this.rawItems = items;
+			this.items = items;
 		});
 	}
 

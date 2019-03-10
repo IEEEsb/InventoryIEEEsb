@@ -2,13 +2,13 @@
 	<div class="col p-3">
 		<a [routerLink]="" (click)="_view()">
 			<div class="row mb-1 mx-0">
-				<div class="col text-center h4">
+				<div class="col text-center h4 d-inline-block text-truncate">
 					{{item.name}}
 				</div>
 			</div>
-			<div class="row mb-1 mx-0">
-				<div class="offset-1 col-10">
-					<img class="img-responsive w-100" [src]="item.icon">
+			<div class="row mb-1 mx-0 img-container">
+				<div class="offset-1 col-10 px-0 align-self-center">
+					<img class="w-100" [src]="item.icon">
 				</div>
 			</div>
 		</a>
@@ -18,8 +18,8 @@
 			</div>
 		</div>
 		<div class="row mb-1 info mx-0">
-			<div class="col text-center">
-				<span class="center">Cant. {{item.quantity}}</span>
+			<div class="col text-center px-0">
+				<span class="center d-inline-block text-truncate">Cant. {{item.quantity}}</span>
 			</div>
 		</div>
 		<div *ngIf="type === 'transaction'" class="row mx-0">
@@ -27,19 +27,17 @@
 				<div class="input-group">
 					<input *ngIf="item.type !== 'static'" type="number" [(ngModel)]="quantity" class="form-control" [max]="item.quantity" [min]="item.step">
 					<div *ngIf="item.type !== 'static'" class="input-group-append">
-						<ieeesb-button [label]="item.type === 'consumable' ? 'Comprar' : 'Prestar'" (click)="_transaction()"></ieeesb-button>
+						<button type="button" class="btn btn-primary" (click)="_transaction()" [disabled]="item.quantity === 0">{{item.type === 'consumable' ? 'Comprar' : 'Prestar'}}</button>
 					</div>
-					<ieeesb-button label="Detalles" (click)="_view()" *ngIf="item.type === 'static'"></ieeesb-button>
+					<button type="button" class="btn btn-primary" (click)="_view()" *ngIf="item.type === 'static'">Detalles</button>
 				</div>
 			</div>
 		</div>
 		<div class="row justify-content-between mx-0 center-childs" *ngIf="type === 'edit'">
-			<div class="col-auto">
-				<a class="input-container" [routerLink]="" (click)="_view()">
-					<div class="input-button px-2"><p>Editar</p></div>
-				</a>
+			<div class="col-auto px-0">
+				<ieeesb-button (click)="_view()" label="Editar"></ieeesb-button>
 			</div>
-			<div class="col-auto">
+			<div class="col-auto px-0">
 				<a [routerLink]="" (click)="_remove()">
 					<img src="assets/waste-bin.svg" class="bin">
 				</a>

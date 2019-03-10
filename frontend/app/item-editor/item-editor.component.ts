@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { DriveService } from 'angular-ieeesb-lib';
 import { InventoryService } from '../inventory.service';
 
 import { Item } from '../../../models/Item';
+
+const config = require('../../../config.json');
 
 @Component({
 	selector: 'app-item-editor',
@@ -13,11 +16,13 @@ import { Item } from '../../../models/Item';
 export class ItemEditorComponent implements OnInit {
 
 	editing = false;
-	item: Item = {};
+	item: Item = {
+		tags: []
+	};
 	tags = [];
 	error;
 
-	constructor(private inventoryService: InventoryService, private router: Router, private route: ActivatedRoute) { }
+	constructor(private inventoryService: InventoryService, private driveService: DriveService, private router: Router, private route: ActivatedRoute) { }
 
 	ngOnInit() {
 		this.route.params.subscribe(params => {
@@ -29,7 +34,7 @@ export class ItemEditorComponent implements OnInit {
 						this.error = null;
 					},
 					(error) => {
-						this.error = error;
+						alert(error);
 					}
 				);
 			} else {
@@ -42,26 +47,11 @@ export class ItemEditorComponent implements OnInit {
 				this.tags = data.tags;
 			},
 			error => {
-				this.error = error;
+				alert(error);
 			}
 		);
-	}
 
-	addTag(tag) {
-		console.log(tag)
-		if(!this.item.tags) {
-			this.item.tags = [];
-		}
-		console.log(this.item.tags.indexOf(tag));
-		if (this.item.tags.indexOf(tag) > -1) return;
-
-		this.item.tags.push(tag);
-		console.log(this.item)
-	}
-
-	removeTag(tag) {
-		if(this.item.tags.indexOf(tag) <= 0) return;
-		this.item.tags.splice(this.item.tags.indexOf(tag), 1);
+		this.driveService.setHost(config.fileServer);
 	}
 
 	addItem() {
@@ -71,7 +61,7 @@ export class ItemEditorComponent implements OnInit {
 				this.error = null;
 			},
 			error => {
-				this.error = error;
+				alert(error);
 			}
 		);
 	}
@@ -86,30 +76,34 @@ export class ItemEditorComponent implements OnInit {
 						this.tags = data.tags;
 					},
 					error => {
-						this.error = error;
+						alert(error);
 					}
 				);
 			},
 			error => {
-				this.error = error;
+				alert(error);
 			}
 		);
 	}
 
 	removeItem() {
-		if(confirm("¿Seguro que quieres borrar el producto?")) {
-			this.inventoryService.removeItem(this.item._id).subscribe(
-				() => {
-					this.router.navigate(['/admin/inventory']);
-					this.error = null;
-				},
-				error => {
-					this.error = error;
-				}
-			);
-		}
+		if(!confirm("¿Seguro que quieres borrar el producto?")) return;
+		this.inventoryService.removeItem(this.item._id).subscribe(
+			() => {
+				this.router.navigate(['/admin/inventory']);
+				this.error = null;
+			},
+			error => {
+				alert(error);
+			}
+		);
 	}
 
-
+	editImage() {
+		if (!confirm('¿Seguro que quieres editar la imagen?')) return;
+		this.driveService.getImageFile().subscribe((data) => {
+			this.item.icon = data.url;
+		});
+	}
 
 }

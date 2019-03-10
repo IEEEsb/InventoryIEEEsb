@@ -66,7 +66,7 @@ module.exports.validators = {
 			price: Joi.when('type', { is: 'consumable', then: Joi.number().min(0).required() }).label('Precio'),
 			sellPercent: Joi.when('type', { is: 'consumable', then: Joi.number().required() }).label('Porcentaje de ganancia'),
 			tags: Joi.array().items(Joi.string()).label('Tags'),
-			icon: Joi.string().label('Icono'),
+			icon: Joi.string().default('/assets/profile_icon.png').label('Icono'),
 			files: Joi.array().items(Joi.string()).label('Archivos'),
 		},
 	},

@@ -1,71 +1,41 @@
-<div class="row h-100 mx-0 justify-content-center">
-	<div class="col-5 py-5">
-		<div class="row bg-white shadow-2 rounded py-4">
-			<div class="col align-self-start">
-				<p class="h5 text-center">{{user.name}}</p>
-
-
-				<div class="row justify-content-center mt-2">
-					<div class="col-7">
-						<ieeesb-input [item]="user.money | number: '1.2-2'" label="Saldo €" [editing]="false"></ieeesb-input>
-						<ieeesb-input [item]="user.roles" label="Roles" [editing]="false"></ieeesb-input>
-					</div>
-				</div>
-				<p class="error my-3" *ngIf="error">{{error}}</p>
-			</div>
-		</div>
-		<div class="row bg-white mt-4 shadow-2 rounded py-4">
-			<div class="col">
-				<p class="h5 text-center">Insertar Dinero con Paypal</p>
-				<div class="row mx-0 justify-content-center mt-3">
-					<div class="col-8">
-						<input type="number" [(ngModel)]="money" class="form-control" step="1" [min]="0">
-					</div>
-				</div>
-				<div class="row justify-content-center mt-3">
-					<div class="col-auto">
-						<span i18n>Tarifa: {{fee}} <b>Total: </b>{{fee + money | number: '1.2-2'}}</span>
-					</div>
-				</div>
-				<div class="row mx-0 justify-content-center mt-3">
-					<div class="col-auto">
-						<div class="paypal-button"></div>
-					</div>
-				</div>
-				<p class="error my-3" *ngIf="error">{{error}}</p>
-			</div>
-		</div>
-		<div class="row bg-white mt-4 shadow-2 rounded py-4 px-3">
-			<div class="col">
-				<p class="h5 text-center">Historial de Compras</p>
-				<div class="row rounded shadow-1 item align-items-center justify-content-between mt-3 py-2" *ngFor="let purchase of purchases">
-					<div class="col">
-						<a class="input-container" [routerLink]="['/inventory/' + purchase.data.item._id]">
-							<span class="h4 mb-0 text-center">{{purchase.data.item.name}}</span>
-						</a>
-					</div>
-					<div class="col">
-						<span class="h5 mb-0 text-center">Cantidad {{purchase.data.quantity}}</span>
-					</div>
-					<div class="col">
-						<span class="h5 mb-0 text-center">{{purchase.data.finalPrice | currency:'EUR':true:'1.2-2'}}</span>
-					</div>
-					<div class="col">
-						<span class="h5 mb-0 text-center">{{purchase.date | date:'dd/MM HH:mm'}}</span>
-					</div>
-					<div class="col-3">
-						<a class="input-container" [class.disabled]="purchase.cancelled" [routerLink]="" (click)="cancel(purchase._id)">
-							<div class="input-button"><p>Cancelar</p></div>
-						</a>
-					</div>
-				</div>
-				<div class="row justify-content-center mt-3">
-					<div class="col-auto">
-						<ieeesb-pagination [items]="rawPurchases" (itemsChange)="purchases=$event" pageSize="10"></ieeesb-pagination>
-					</div>
+<div class="row h-100 mx-0 px-0 justify-content-center main">
+	<div class="col-12 col-lg-10 col-xl-8 py-5">
+		<ieeesb-section>
+			<p class="h5 text-center">{{user.name}}</p>
+			<div class="row justify-content-center mt-2">
+				<div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
+					<mat-form-field>
+						<input matInput [ngModel]="user.money | number: '1.2-2'" placeholder="Saldo €" disabled>
+					</mat-form-field>
+					<ieeesb-tags [item]="user.roles" [tags]="[]" label="Roles" [editing]="false"></ieeesb-tags>
 				</div>
 			</div>
-		</div>
+			<p class="error my-3" *ngIf="error">{{error}}</p>
+		</ieeesb-section>
+		<ieeesb-section>
+			<p class="h5 text-center">Insertar Dinero con Paypal</p>
+			<div class="row justify-content-center mt-3">
+				<div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
+					<mat-form-field>
+						<input matInput type="number" [(ngModel)]="money" placeholder="Dinero" step="1" [min]="0">
+					</mat-form-field>
+				</div>
+			</div>
+			<div class="row justify-content-center mt-3">
+				<div class="col-auto">
+					<span i18n>Tarifa: {{fee}} <b>Total: </b>{{fee + money | number: '1.2-2'}}</span>
+				</div>
+			</div>
+			<div class="row mx-0 justify-content-center mt-3">
+				<div class="col-auto">
+					<div class="paypal-button"></div>
+				</div>
+			</div>
+			<p class="error my-3" *ngIf="error">{{error}}</p>
+		</ieeesb-section>
+		<ieeesb-section>
+			<p class="h5 text-center">Historial de Compras</p>
+			<ieeesb-list [items]="purchases" [labels]="['Producto', 'Cantidad', 'Precio Total €', 'Fecha']" [keys]="['data.item.name', 'data.quantity', 'data.finalPrice', 'date']" (callback)="cancel($event)" linkKey="_id" linkLabel="Cancelar" dateFormat="dd/MM HH:mm" disabled="cancelled"></ieeesb-list>
+		</ieeesb-section>
 	</div>
-
 </div>

@@ -1,32 +1,52 @@
 <div class="row h-100 mx-0 justify-content-center">
-	<div class="col-6 bg-white align-self-start my-5 shadow-2 rounded p-5">
-		<p class="h5 text-center mb-3" *ngIf="!editing">Añadir Producto</p>
-		<p class="h5 text-center mb-3" *ngIf="editing">Editar Producto</p>
+	<div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5 py-5 px-3">
+		<ieeesb-section>
+			<p class="h5 text-center mb-3" *ngIf="!editing">Añadir Producto</p>
+			<p class="h5 text-center mb-3" *ngIf="editing">Editar Producto</p>
+			<div class="row">
+				<div class="col-12 col-sm-3">
+					<div class="row mb-1 mx-0 img-container" (click)="editImage()">
+						<div class="offset-1 col-10 px-0 align-self-center">
+							<img class="w-100" [src]="item.icon">
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-sm-9">
+					<mat-form-field>
+						<input matInput [(ngModel)]="item.name" placeholder="Nombre">
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput [(ngModel)]="item.code" placeholder="Código" type="number">
+					</mat-form-field>
+					<ieeesb-select [(item)]="item.type" label="Tipo" [options]="['consumable', 'lendable', 'static']" [optionsLabels]="['Consumible', 'Prestable', 'Estático']"></ieeesb-select>
+					<mat-form-field>
+						<input matInput [(ngModel)]="item.quantity" placeholder="Cantidad" type="number">
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput [(ngModel)]="item.step" placeholder="Incremento de Cantidad" type="number">
+					</mat-form-field>
+					<mat-form-field *ngIf="item.type === 'consumable'">
+						<input matInput [(ngModel)]="item.price" placeholder="Precio €" type="number" step="0.01">
+					</mat-form-field>
+					<mat-form-field *ngIf="item.type === 'consumable'">
+						<input matInput [(ngModel)]="item.sellPercent" placeholder="Porcentaje de Ganancia" type="number">
+					</mat-form-field>
+					<ieeesb-tags [(item)]="item.tags" [tags]="tags" label="Tags"></ieeesb-tags>
+				</div>
+			</div>
+			<div class="row justify-content-between mt-5">
+				<div class="col" *ngIf="!editing">
+					<ieeesb-button label="Añadir" (click)="addItem()"></ieeesb-button>
+				</div>
+				<div class="col" *ngIf="editing">
+					<ieeesb-button label="Actualizar" (click)="updateItem()"></ieeesb-button>
+				</div>
+				<div class="col" *ngIf="editing">
+					<ieeesb-button label="Eliminar" [danger]="true" (click)="removeItem()"></ieeesb-button>
+				</div>
+			</div>
 
-		<ieeesb-input [(item)]="item.name" label="Nombre"></ieeesb-input>
-		<ieeesb-input [(item)]="item.code" label="Código" type="number"></ieeesb-input>
-		<ieeesb-select [(item)]="item.type" label="Tipo" [options]="['consumable', 'lendable', 'static']" [optionsLabels]="['Consumible', 'Prestable', 'Estático']"></ieeesb-select>
-		<ieeesb-input [(item)]="item.quantity" label="Cantidad" type="number"></ieeesb-input>
-		<ieeesb-input [(item)]="item.step" label="Incremento de Cantidad" type="number"></ieeesb-input>
-		<ieeesb-input [(item)]="item.price" label="Precio €" type="number" step="0.01" *ngIf="item.type === 'consumable'"></ieeesb-input>
-		<ieeesb-input [(item)]="item.sellPercent" label="Porcentaje de Ganancia" type="number" *ngIf="item.type === 'consumable'"></ieeesb-input>
-		<ieeesb-input [(item)]="item.tags" [tags]="tags" label="Tags"></ieeesb-input>
-		<div class="row justify-content-center" *ngIf="!editing">
-			<div class="col-3">
-				<ieeesb-button label="Añadir" (click)="addItem()"></ieeesb-button>
-			</div>
-		</div>
-		<div class="row justify-content-center" *ngIf="editing">
-			<div class="col-3">
-				<ieeesb-button label="Actualizar" (click)="updateItem()"></ieeesb-button>
-			</div>
-			<div class="col-1">
-			</div>
-			<div class="col-3">
-				<ieeesb-button label="Eliminar" [danger]="true" (click)="removeItem()"></ieeesb-button>
-			</div>
-		</div>
-
-		<p class="error my-3" *ngIf="error">{{error}}</p>
+			<p class="error my-3" *ngIf="error">{{error}}</p>
+		</ieeesb-section>
 	</div>
 </div>

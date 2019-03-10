@@ -1,25 +1,13 @@
-<div class="container-fluid main p-5">
-	<div class="row justify-content-between mb-3">
-		<div class="col-auto">
-			<div class="row">
-				<div class="col-auto">
-					<span class="h2">Inventario</span>
-				</div>
-				<div class="col">
-					<ieeesb-search [items]="rawItems" [keys]="['tags', 'name']" (itemsChange)="items = $event"></ieeesb-search>
-				</div>
+<div class="row h-100 py-5 mx-0 main">
+	<div class="col-12">
+		<ieeesb-title title="Inventario" [(search)]="search" link="/admin/inventory/add" linkLabel="Añadir Producto"></ieeesb-title>
+		<div class="row">
+			<div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let item of (items | filter:search:['tags', 'name'])">
+				<app-item-short [item]="item" type="edit" (view)="edit(item._id)"></app-item-short>
 			</div>
-		</div>
-		<div class="col-3">
-			<ieeesb-button label="+ Añadir Producto" link="/admin/inventory/add"></ieeesb-button>
-		</div>
-	</div>
-	<div class="row items">
-		<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2" *ngFor="let item of items">
-			<app-item-short [item]="item" type="edit" (view)="edit(item._id)"></app-item-short>
-		</div>
-		<div *ngIf="items.length <= 0">
-			No hay resultados...
+			<div *ngIf="(items | filter:search:['tags', 'name']).length <= 0">
+				No hay resultados...
+			</div>
 		</div>
 	</div>
 </div>

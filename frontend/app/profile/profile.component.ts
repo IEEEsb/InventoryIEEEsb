@@ -19,7 +19,6 @@ declare var paypal: any;
 export class ProfileComponent implements OnInit, AfterViewInit {
 
 	user: User = {};
-	rawPurchases: Transaction[] = [];
 	purchases: Transaction[] = [];
 	error;
 	money = 0;
@@ -32,7 +31,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 		});
 
 		this.userService.getSelfPurchases().subscribe((purchases) => {
-			this.rawPurchases = purchases;
+			this.purchases = purchases;
 		});
 	}
 

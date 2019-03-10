@@ -29,16 +29,15 @@ export class UserEditorComponent implements OnInit {
 						this.userService.getUserPurchases(this.user._id).subscribe(
 							(data) => {
 								this.purchases = data.purchases;
-								this.error = null;
 							},
 							(error) => {
-								this.error = error;
+								alert(error);
 							}
 						);
 						this.error = null;
 					},
 					(error) => {
-						this.error = error;
+						alert(error);
 					}
 				);
 			}
@@ -50,10 +49,9 @@ export class UserEditorComponent implements OnInit {
 		this.userService.addMoney(this.user._id, this.money).subscribe(
 			(data) => {
 				this.user = data.user;
-				this.error = null;
 			},
 			(error) => {
-				this.error = error;
+				alert(error);
 			}
 		)
 	}
@@ -63,12 +61,29 @@ export class UserEditorComponent implements OnInit {
 		this.userService.addRole(this.user._id, this.role).subscribe(
 			(data) => {
 				this.user = data.user;
-				this.error = null;
 			},
 			(error) => {
-				this.error = error;
+				alert(error);
 			}
 		)
+	}
+
+	cancel(purchaseId) {
+		this.userService.cancelUserPurchase(this.user._id, purchaseId).subscribe(
+			(data) => {
+				this.userService.getUserPurchases(this.user._id).subscribe(
+					(data) => {
+						this.purchases = data.purchases;
+					},
+					(error) => {
+						alert(error);
+					}
+				);
+			},
+			(error) => {
+				alert(error);
+			}
+		);
 	}
 
 }

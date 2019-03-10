@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { UserService } from '../user.service';
@@ -16,8 +17,13 @@ export class MainComponent implements OnInit {
 	menuItems = {left: [], right: []};
 
 	user;
+	activeLink = '';
 
-	constructor(private userService: UserService, private utilsService: UtilsService, private router: Router) { }
+	constructor(private userService: UserService, private utilsService: UtilsService, private location: Location, private router: Router) {
+		this.router.events.subscribe((val) => {
+			this.activeLink = this.location.path() === '' ? '/' : this.location.path();
+		});
+	}
 
 	ngOnInit() {
 		this.userService.getLoggedUser().subscribe((user) => {
@@ -27,7 +33,7 @@ export class MainComponent implements OnInit {
 					{
 						text: 'Comprar',
 						type: 'router',
-						link: '/inventory',
+						link: '/buy',
 						roles: [],
 					}
 				],

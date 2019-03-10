@@ -19,7 +19,7 @@ require('./models/User');
 
 console.log('===================================');
 console.log('        >>> InventoryIEEEsb <<<');
-console.log(' IEEE Student Branch user system');
+console.log(' IEEE Student Branch inventory system');
 console.log('===================================\n');
 
 // Connect to the MongoDB database

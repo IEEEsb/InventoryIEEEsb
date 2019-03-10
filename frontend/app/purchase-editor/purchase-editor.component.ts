@@ -29,7 +29,7 @@ export class PurchaseEditorComponent implements OnInit {
 						this.error = null;
 					},
 					(error) => {
-						this.error = error;
+						alert(error);
 					}
 				);
 			} else {
@@ -44,20 +44,21 @@ export class PurchaseEditorComponent implements OnInit {
 				this.router.navigate(['/admin/purchase/' + data.purchase._id]);
 				this.error = null;
 			},
-			error => {
-				this.error = error;
+			(error) => {
+				alert(error);
 			}
 		);
 	}
 
 	endPurchase() {
+		if(!confirm('¿Seguro que quieres terminar la compra?')) return;
 		this.inventoryService.endPurchase(this.purchase._id).subscribe(
 			(data) => {
 				this.purchase = data.purchase;
 				this.error = null;
 			},
-			error => {
-				this.error = error;
+			(error) => {
+				alert(error);
 			}
 		);
 	}
@@ -68,8 +69,8 @@ export class PurchaseEditorComponent implements OnInit {
 				this.purchase = data.purchase;
 				this.error = null;
 			},
-			error => {
-				this.error = error;
+			(error) => {
+				alert(error);
 			}
 		);
 	}

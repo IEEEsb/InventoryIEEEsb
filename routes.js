@@ -29,6 +29,7 @@ userRouter.post('/logout', authController.logout);
 userRouter.get('/self/purchase/all', selfUser, inventoryController.getUserPurchases);
 userRouter.get('/:userId/purchase/all/', inventoryController.getUserPurchases);
 userRouter.post('/self/purchase/:purchaseId/cancel', selfUser, inventoryController.cancelUserPurchase);
+userRouter.post('/:userId/purchase/:purchaseId/cancel', inventoryController.cancelUserPurchase);
 
 // Endpoints limited to administrators
 userRouter.use(authController.adminRequired);

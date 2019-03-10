@@ -20,10 +20,16 @@ export class LoginComponent implements OnInit {
 			if(!params) return;
 
 			if(params.token) {
-				this.userService.login(params.token).subscribe((user) => {
-					this.router.navigate(['/']);
-					this.utilsService.setParams(null);
-				});
+				this.userService.login(params.token).subscribe(
+					(user) => {
+						this.router.navigate(['/']);
+						this.utilsService.setParams(null);
+					},
+					(error) => {
+						this.router.navigate(['/']);
+						alert(error);
+					}
+				);
 			}
 		});
 	}

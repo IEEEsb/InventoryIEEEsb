@@ -14,6 +14,12 @@ module.exports.InternalError = class InternalError extends CustomError {
 	}
 };
 
+module.exports.InvalidSessionError = class InvalidSessionError extends CustomError {
+	constructor() {
+		super('Invalid session. Please log in again', 'invalid_session', 401);
+	}
+};
+
 module.exports.InvalidScopeError = class InvalidScopeError extends CustomError {
 	constructor() {
 		super('Service don\'t have the right permissions to access user\'s data', 'invalid_scope', 401);

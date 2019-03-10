@@ -11,14 +11,13 @@ import { User } from '../../../models/User';
 })
 export class UsersEditorComponent implements OnInit {
 
-	rawUsers: User[] = [];
 	users: User[] = [];
-
+	search = '';
 	constructor(private userService: UserService) { }
 
 	ngOnInit() {
 		this.userService.getAllUsers().subscribe((data) => {
-			this.rawUsers = data.users;
+			this.users = data.users;
 		});
 	}
 

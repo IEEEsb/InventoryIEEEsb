@@ -12,7 +12,6 @@ import { Item } from '../../../models/Item';
 })
 export class InventoryComponent implements OnInit {
 
-	rawItems: Item[] = [];
 	items: Item[] = [];
 	search = '';
 
@@ -20,7 +19,7 @@ export class InventoryComponent implements OnInit {
 
 	ngOnInit() {
 		this.inventoryService.getConsumableItems().subscribe((items) => {
-			this.rawItems = items;
+			this.items = items;
 		});
 	}
 

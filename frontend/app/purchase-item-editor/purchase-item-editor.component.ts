@@ -47,6 +47,15 @@ export class PurchaseItemEditorComponent implements OnInit {
 	}
 
 	search() {
+		if(this.purchase.items.find((el) => el.item.code === this.code)) {
+			this.purchaseItem = this.purchase.items.find((el) => el.item.code === this.code);
+			this.purchaseItem.quantityLeft = this.purchaseItem.quantityLeft.real;
+			if(this.purchaseItem) {
+				this.item = this.purchaseItem.item;
+				this.editing = true;
+			}
+			return;
+		}
 		this.inventoryService.getItemByCode(this.code).subscribe(
 			(data) => {
 				this.purchaseItem = this.purchase.items.find((el) => el.item === data.item._id);
@@ -54,7 +63,9 @@ export class PurchaseItemEditorComponent implements OnInit {
 					this.purchaseItem = {};
 				}
 				this.item = data.item;
-
+			},
+			(error) => {
+				alert(error);
 			}
 		);
 	}
@@ -64,6 +75,10 @@ export class PurchaseItemEditorComponent implements OnInit {
 			(data) => {
 				this.code = '';
 				this.item = null;
+				this.purchaseItem = null;
+			},
+			(error) => {
+				alert(error);
 			}
 		);
 	}

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const config = require('../config.json');
 const User = require('../models/User');
 const Item = require('../models/Item');
 const Transaction = require('../models/Transaction');
@@ -69,7 +68,6 @@ exports.addItem = async (req, res, next) => {
 				}
 			}
 		}
-		req.body.icon = req.body.icon ? req.body.icon : `${config.fileServer}/assets/profile_icon.png`;
 		const item = await Item.create(req.body);
 		return res.status(200).send({ item });
 	} catch (e) {
@@ -286,6 +284,8 @@ exports.addPurchaseItem = async (req, res, next) => {
 
 		const item = await Item.findById(req.params.itemId);
 		if (!item) throw new UnknownObjectError('Item');
+		if (multiple(req.body.quantity, item.step)) throw new InvalidQuantityError(item.step);
+		if (multiple(req.body.quantityLeft, item.step)) throw new InvalidQuantityError(item.step);
 
 		const purchaseItem = {
 			item: item._id,
@@ -306,6 +306,11 @@ exports.addPurchaseItem = async (req, res, next) => {
 
 exports.updatePurchaseItem = async (req, res, next) => {
 	try {
+		const item = await Item.findById(req.params.itemId);
+		if (!item) throw new UnknownObjectError('Item');
+		if (multiple(req.body.quantity, item.step)) throw new InvalidQuantityError(item.step);
+		if (multiple(req.body.quantityLeft, item.step)) throw new InvalidQuantityError(item.step);
+
 		const setItem = {
 			'items.$.quantityLeft.real': req.body.quantityLeft,
 			'items.$.quantity': req.body.quantity,

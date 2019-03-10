@@ -12,13 +12,13 @@ import { Purchase } from '../../../models/Purchase';
 })
 export class PurchasesEditorComponent implements OnInit {
 
-	rawPurchases: Purchase[] = [];
 	purchases: Purchase[] = [];
+
 	constructor(private inventoryService: InventoryService, private router: Router) { }
 
 	ngOnInit() {
 		this.inventoryService.getPurchases().subscribe((purchases) => {
-			this.rawPurchases = purchases;
+			this.purchases = purchases;
 		});
 	}
 

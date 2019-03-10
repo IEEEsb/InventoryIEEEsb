@@ -1,14 +1,22 @@
-<div class="row h-100 mx-0 justify-content-center">
-	<div class="col-6 bg-white align-self-start my-5 shadow-2 rounded py-5">
-		<p class="h5 text-center mb-3">{{item.name}}</p>
-		<div class="row justify-content-center">
-			<div class="col-7">
-				<ieeesb-input [item]="item.code" label="Código" [editing]="false"></ieeesb-input>
-				<ieeesb-select [item]="item.type" label="Tipo" [editing]="false" [options]="['consumable', 'lendable', 'static']" [optionsLabels]="['Consumible', 'Prestable', 'Estático']"></ieeesb-select>
-				<ieeesb-input [item]="item.quantity | number: '1.0-2'" label="Cantidad" [editing]="false" type="number"></ieeesb-input>
-				<ieeesb-input [item]="item.price * (1 + item.sellPercent / 100) | number: '1.2-2'" label="Precio" [editing]="false" type="number"></ieeesb-input>
+<div class="row h-100 mx-0 main justify-content-center">
+	<div class="col-12 col-lg-10 col-xl-8 py-5">
+		<ieeesb-section>
+			<p class="h5 text-center mb-3">{{item.name}}</p>
+			<div class="row justify-content-center">
+				<div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+					<mat-form-field>
+						<input matInput [ngModel]="item.code" placeholder="Código" disabled>
+					</mat-form-field>
+					<ieeesb-select [item]="item.type" label="Tipo" [editing]="false" [options]="['consumable', 'lendable', 'static']" [optionsLabels]="['Consumible', 'Prestable', 'Estático']"></ieeesb-select>
+					<mat-form-field>
+						<input matInput [ngModel]="item.quantity | number: '1.0-2'" placeholder="Cantidad" disabled type="number">
+					</mat-form-field>
+					<mat-form-field>
+						<input matInput [ngModel]="item.price * (1 + item.sellPercent / 100) | number: '1.2-2'" placeholder="Precio" disabled type="number">
+					</mat-form-field>
+				</div>
 			</div>
-		</div>
-		<p class="error my-3" *ngIf="error">{{error}}</p>
+			<p class="error my-3" *ngIf="error">{{error}}</p>
+		</ieeesb-section>
 	</div>
 </div>

@@ -1,45 +1,15 @@
-<div class="container-fluid main p-5">
+<div class="container-fluid main py-5">
 	<div class="row justify-content-between mb-3">
-		<div class="col-auto">
-			<div class="row">
-				<div class="col-auto">
-					<span class="h2">Compras</span>
-				</div>
-			</div>
+		<div class="col-12 col-sm-auto text-center">
+			<span class="h2">Compras</span>
 		</div>
-		<div class="col-3">
-			<ieeesb-button label="+ Añadir Compra" link="/admin/purchase/add"></ieeesb-button>
+		<div class="col-12 col-sm-2 col-lg-3 col-xl-3">
+			<ieeesb-button label="Añadir Compra" link="/admin/purchase/add"></ieeesb-button>
 		</div>
 	</div>
 	<div class="row justify-content-center">
-		<div class="col-6">
-			<div class="row rounded shadow-1 item align-items-center justify-content-between mb-3 py-2" *ngFor="let purchase of purchases">
-				<div class="col-auto">
-					<a class="input-container" [routerLink]="['/admin/purchase/' + purchase._id]">
-						<span class="h4 mb-0">{{purchase.date | date:'dd/MM/yyyy'}}</span>
-					</a>
-				</div>
-				<div class="col-6">
-					<div class="row justify-content-end align-items-center">
-						<div class="col-auto">
-							<span class="h5 mb-0">Precio Total {{purchase.totalPrice}} €</span>
-						</div>
-						<div class="col-4">
-							<a class="input-container" [routerLink]="['/admin/purchase/' + purchase._id]">
-								<div class="input-button"><p>Editar</p></div>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div *ngIf="purchases.length <= 0">
-					No hay resultados...
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row justify-content-center mt-3">
-		<div class="col-auto">
-			<ieeesb-pagination [items]="rawPurchases" (itemsChange)="purchases=$event" pageSize="10"></ieeesb-pagination>
+		<div class="col-12">
+			<ieeesb-list [items]="purchases" [labels]="['Fecha', 'Precio Total €', 'Dinero Restante €']" [keys]="['date', 'totalPrice', 'moneyLeft']" link="/admin/purchase/" linkKey="_id" linkLabel="Detalles"></ieeesb-list>
 		</div>
 	</div>
 </div>

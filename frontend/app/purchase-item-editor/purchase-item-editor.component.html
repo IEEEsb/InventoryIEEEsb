@@ -1,22 +1,43 @@
-<div class="row h-100 mx-0 justify-content-center">
-	<div class="col-6 bg-white align-self-start my-5 shadow-2 rounded py-5">
-		<p class="h5 text-center mb-3" *ngIf="!purchase.finished && !editing">Añadir Producto</p>
+<div class="row h-100 mx-0 py-5 justify-content-center">
+	<div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4 py-5 px-3">
+		<ieeesb-section>
+			<p class="h5 text-center mb-3" *ngIf="!purchase.finished && !editing">Añadir Producto</p>
 
-		<ieeesb-input [(item)]="code" (enter)="search()" label="Código"></ieeesb-input>
+			<mat-form-field *ngIf="!item">
+				<input matInput type=number [(ngModel)]="code" (keyup.enter)="search()" placeholder="Código">
+			</mat-form-field>
 
-		<p class="h5 text-center mb-3" *ngIf="item">{{item.name}}</p>
-		<ieeesb-input [(item)]="purchaseItem.quantityLeft" label="Cantidad Restante"></ieeesb-input>
-		<ieeesb-input [(item)]="purchaseItem.quantity" label="Cantidad Comprada"></ieeesb-input>
-		<ieeesb-input [(item)]="purchaseItem.price" label="Precio"></ieeesb-input>
-		<div class="row justify-content-center" *ngIf="!editing && item && !purchase.finished">
-			<div class="col-3 input-container">
-				<ieeesb-button label="Añadir" (click)="addItem()"></ieeesb-button>
+			<p class="h5 text-center mb-3" *ngIf="item">{{item.name}}</p>
+			<div class="row" *ngIf="item">
+				<div class="col-12 col-sm-3">
+					<div class="row mb-1 mx-0 img-container" (click)="editImage()">
+						<div class="offset-1 col-10 px-0 align-self-center">
+							<img class="w-100" [src]="item.icon">
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-sm-9">
+					<mat-form-field *ngIf="purchaseItem">
+						<input matInput type="number" [(ngModel)]="purchaseItem.quantityLeft" placeholder="Cantidad Restante">
+					</mat-form-field>
+					<mat-form-field *ngIf="purchaseItem">
+						<input matInput type="number" [(ngModel)]="purchaseItem.quantity" placeholder="Cantidad Comprada">
+					</mat-form-field>
+					<mat-form-field *ngIf="purchaseItem">
+						<input matInput type="number" step="0.01" [(ngModel)]="purchaseItem.price" placeholder="Precio">
+					</mat-form-field>
+				</div>
 			</div>
-		</div>
-		<div class="row justify-content-center" *ngIf="editing && item && !purchase.finished">
-			<div class="col-3 input-container">
-				<ieeesb-button label="Actualizar" (click)="updateItem()"></ieeesb-button>
+			<div class="row justify-content-center" *ngIf="!editing && item && !purchase.finished">
+				<div class="col-3 input-container">
+					<ieeesb-button label="Añadir" (click)="addItem()"></ieeesb-button>
+				</div>
 			</div>
-		</div>
+			<div class="row justify-content-center" *ngIf="editing && item && !purchase.finished">
+				<div class="col-3 input-container">
+					<ieeesb-button label="Actualizar" (click)="updateItem()"></ieeesb-button>
+				</div>
+			</div>
+		</ieeesb-section>
 	</div>
 </div>

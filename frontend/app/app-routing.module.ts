@@ -23,7 +23,7 @@ const routes: Routes = [
 	{
 		path: '', component: MainComponent, children: [
 			{ path: '', component: HomeComponent },
-			{ path: 'inventory', canActivate:[LoggedInGuard], component: InventoryComponent },
+			{ path: 'buy', canActivate:[LoggedInGuard], component: InventoryComponent },
 			{ path: 'inventory/:itemId', canActivate:[LoggedInGuard], component: ItemComponent },
 			{ path: 'profile', canActivate:[LoggedInGuard], component: ProfileComponent },
 			{ path: 'login', component: LoginComponent },
