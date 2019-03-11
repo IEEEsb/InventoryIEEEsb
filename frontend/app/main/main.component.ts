@@ -14,7 +14,14 @@ const config = require('../../../config.json');
 })
 export class MainComponent implements OnInit {
 
-	menuItems = {left: [], right: []};
+	menuItems = {
+		logo: {
+			type: 'link',
+			link: 'https://ieeesb.es',
+		},
+		left: [],
+		right: []
+	};
 
 	user;
 	activeLink = '';
@@ -29,6 +36,10 @@ export class MainComponent implements OnInit {
 		this.userService.getLoggedUser().subscribe((user) => {
 			this.user = user;
 			this.menuItems = {
+				logo: {
+					type: 'link',
+					link: 'https://ieeesb.es',
+				},
 				left: [
 					{
 						text: 'Comprar',

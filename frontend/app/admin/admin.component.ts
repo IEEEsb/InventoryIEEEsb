@@ -16,6 +16,10 @@ export class AdminComponent implements OnInit {
 	activeLink = '';
 	user;
 	menuItems = {
+		logo: {
+			type: 'router',
+			link: '/',
+		},
 		left: [
 			{
 				text: 'Inventario',
