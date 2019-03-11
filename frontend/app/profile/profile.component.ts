@@ -77,7 +77,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
 				// Make a call to the merchant server to execute the payment
 				try {
-					const user = await this.paypalService.executePayment(data.paymentID, data.payerID);
+					const user = await this.paypalService.executePayment(data.paymentID, data.payerID).toPromise();
 					this.user = user;
 				} catch(e) {
 
