@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, isDevMode } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { UserService } from '../user.service';
@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
 			// Set your environment
 
-			env: 'production', // sandbox | production
+			env: isDevMode() ? 'sandbox' : 'production', // sandbox | production
 
 			// Specify the style of the button
 
