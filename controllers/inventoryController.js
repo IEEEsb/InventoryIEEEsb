@@ -181,7 +181,7 @@ exports.cancelUserPurchase = async (req, res, next) => {
 
 		await session.commitTransaction();
 
-		transaction = await Transaction.create({ user: req.session.userId, type: 'cancel', data: { transactionId: req.params.purchaseId } });
+		transaction = await Transaction.create({ user: req.session.userId, type: 'cancel', data: { transactionId: transaction._id } });
 
 		return res.status(200).send({ money: user.money, item });
 	} catch (e) {

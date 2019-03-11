@@ -62,7 +62,7 @@ module.exports.addMoney = async (req, res, next) => {
 			user: req.session.userId,
 			type: 'addMoney',
 			data: {
-				to: req.params.userId,
+				to: user._id,
 				money: req.body.money,
 				from: 'cash',
 			},

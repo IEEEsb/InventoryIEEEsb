@@ -62,7 +62,7 @@ module.exports.validators = {
 			name: Joi.string().required().label('Nombre'),
 			type: Joi.string().valid('consumable', 'lendable', 'static').required().label('Tipo'),
 			step: Joi.number().required().label('Incremento de Cantidad'),
-			quantity: Joi.number().min(customNumber.ref('step')).multiple(Joi.ref('step')).required().label('Cantidad'),
+			quantity: Joi.number().min(0).multiple(Joi.ref('step')).required().label('Cantidad'),
 			price: Joi.when('type', { is: 'consumable', then: Joi.number().min(0).required() }).label('Precio'),
 			sellPercent: Joi.when('type', { is: 'consumable', then: Joi.number().required() }).label('Porcentaje de ganancia'),
 			tags: Joi.array().items(Joi.string()).label('Tags'),
