@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
 			if(params.token) {
 				this.userService.login(params.token).subscribe(
 					(user) => {
-						this.router.navigate(['/']);
+						console.log(params)
+						this.router.navigate([params.callback ? params.callback : '/']);
 						this.utilsService.setParams(null);
 					},
 					(error) => {
