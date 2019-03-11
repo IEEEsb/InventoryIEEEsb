@@ -57,7 +57,7 @@ exports.executePayment = async (req, res, next) => {
 		request.requestBody({ payer_id: req.body.payerId });
 
 		const response = await client.execute(request);
-		if (response.state !== 'approved') throw new PaymentNotApprovedError();
+		if (response.result.state !== 'approved') throw new PaymentNotApprovedError();
 
 
 		let money = parseFloat(response.result.transactions[0].amount.total);
