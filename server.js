@@ -43,7 +43,7 @@ mongoose.connect(config.mongo.serverUrl, {
 			return 'not loggged in';
 		});
 		app.use(morgan('[:date[iso]] :remote-addr (:user) :method :url :status'
-			+ ':res[content-length] B - :response-time ms', { stream }));
+		+ ':res[content-length] B - :response-time ms', { stream }));
 	}
 	// Parser for the requests' body
 	app.use(express.json({ limit: '50mb' }));
@@ -54,7 +54,10 @@ mongoose.connect(config.mongo.serverUrl, {
 		secret: config.store.secret,
 		store: new MongoStore({ mongooseConnection: mongoose.connection }),
 		resave: false,
-		cookie: { secure: 'auto' },
+		cookie: {
+			secure: 'auto',
+			maxAge: 20 * 365 * 24 * 60 * 60 * 1000,
+		},
 		saveUninitialized: false,
 	}));
 	// Static Angular distributables
@@ -67,4 +70,4 @@ mongoose.connect(config.mongo.serverUrl, {
 	// Start listening to requests
 	app.listen(config.serverPort,
 		() => console.log('Listening for requests on port', config.serverPort));
-});
+	});
