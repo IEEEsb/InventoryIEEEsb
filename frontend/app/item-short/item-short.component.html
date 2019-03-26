@@ -23,7 +23,7 @@
 			</div>
 		</div>
 		<div *ngIf="type === 'transaction'" class="row mx-0">
-			<div class="col">
+			<div class="col p-0">
 				<div class="input-group">
 					<input *ngIf="item.type !== 'static'" type="number" [(ngModel)]="quantity" class="form-control" [max]="item.quantity" [min]="item.step">
 					<div *ngIf="item.type !== 'static'" class="input-group-append">
