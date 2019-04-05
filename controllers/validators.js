@@ -83,7 +83,7 @@ module.exports.validators = {
 	},
 	purchaseItem: {
 		body: {
-			quantityLeft: Joi.number().greater(0).label('Cantidad Restante'),
+			quantityLeft: Joi.number().min(0).label('Cantidad Restante'),
 			quantity: Joi.number().greater(0).label('Cantidad Comprada'),
 			price: customNumber.number().greater(0).multiple(0.01).label('Precio'),
 		},
