@@ -113,7 +113,7 @@ exports.buyItem = async (req, res, next) => {
 
 		const price = round(item.price * (1 + item.sellPercent / 100.0), 2);
 		const finalPrice = price * quantity;
-		if (finalPrice > user.money) throw new NotEnoughMoneyError();
+		// if (finalPrice > user.money) throw new NotEnoughMoneyError();
 
 		const session = await mongoose.startSession();
 		session.startTransaction();

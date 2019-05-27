@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 
 const User = new Schema({
 	authId: { type: String, index: { unique: true, dropDups: true } },
-	money: { type: Float, min: 0, default: 0.0 },
+	money: { type: Float, default: 0.0 },
 	name: { type: String, required: true },
 	roles: [{ type: String }],
 });
