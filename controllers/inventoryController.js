@@ -115,22 +115,12 @@ exports.buyItem = async (req, res, next) => {
 		const finalPrice = price * quantity;
 		// if (finalPrice > user.money) throw new NotEnoughMoneyError();
 
-		const session = await mongoose.startSession();
-		session.startTransaction();
+		item = await Item.findOneAndUpdate({ _id: req.params.itemId }, { $inc: { quantity: -quantity } }, { new: true });
+		if (!item) throw new NotEnoughItemError();
 
-		item = await Item.findOneAndUpdate({ _id: req.params.itemId }, { $inc: { quantity: -quantity } }, { new: true }).session(session);
-		if (!item) {
-			await session.abortTransaction();
-			throw new NotEnoughItemError();
-		}
+		user = await User.findOneAndUpdate({ _id: user._id }, { $inc: { money: -finalPrice } }, { new: true });
+		if (!user) throw new NotEnoughMoneyError();
 
-		user = await User.findOneAndUpdate({ _id: user._id }, { $inc: { money: -finalPrice } }, { new: true }).session(session);
-		if (!user) {
-			await session.abortTransaction();
-			throw new NotEnoughMoneyError();
-		}
-
-		await session.commitTransaction();
 		await Transaction.create({
 			user: req.session.userId,
 			type: 'buy',
@@ -164,22 +154,11 @@ exports.cancelUserPurchase = async (req, res, next) => {
 		let transaction = await Transaction.findOneAndUpdate({ _id: req.params.purchaseId, cancelled: false }, { $set: { cancelled: true } }, { new: true });
 		if (!transaction) throw new UnknownObjectError('Transaction');
 
-		const session = await mongoose.startSession();
-		session.startTransaction();
+		const user = await User.findOneAndUpdate({ _id: req.params.userId }, { $inc: { money: transaction.data.finalPrice } }, { new: true });
+		if (!user) throw new InternalError();
 
-		const user = await User.findOneAndUpdate({ _id: req.params.userId }, { $inc: { money: transaction.data.finalPrice } }, { new: true }).session(session);
-		if (!user) {
-			await session.abortTransaction();
-			throw new InternalError();
-		}
-
-		const item = await Item.findOneAndUpdate({ _id: transaction.data.item }, { $inc: { quantity: transaction.data.quantity } }, { new: true }).session(session);
-		if (!item) {
-			await session.abortTransaction();
-			throw new InternalError();
-		}
-
-		await session.commitTransaction();
+		const item = await Item.findOneAndUpdate({ _id: transaction.data.item }, { $inc: { quantity: transaction.data.quantity } }, { new: true });
+		if (!item) throw new InternalError();
 
 		transaction = await Transaction.create({ user: req.session.userId, type: 'cancel', data: { transactionId: transaction._id } });
 
@@ -235,30 +214,21 @@ exports.updatePurchase = async (req, res, next) => {
 };
 
 exports.endPurchase = async (req, res, next) => {
-	let session;
 	try {
 		let purchase = await Purchase.findOne({ _id: req.params.purchaseId, finished: false });
 		if (!purchase) throw new UnknownObjectError('Purchase');
 
-		session = await mongoose.startSession();
-		session.startTransaction();
-
 		const results = [];
 		for (const item of purchase.items) {
-			results.push(Item.findOneAndUpdate({ _id: item.item }, { $set: { quantity: (item.quantityLeft.real + item.quantity), price: item.price } }).session(session));
+			results.push(Item.findOneAndUpdate({ _id: item.item }, { $set: { quantity: (item.quantityLeft.real + item.quantity), price: item.price } }));
 		}
 
 		await Promise.all(results);
-
-		await session.commitTransaction();
 
 		purchase = await Purchase.findOneAndUpdate({ _id: req.params.purchaseId }, { $set: { finished: true } }, { new: true }).populate({ path: 'items.item' });
 
 		return res.status(200).send({ purchase });
 	} catch (e) {
-		if (session) {
-			session.abortTransaction();
-		}
 		return next(e);
 	}
 };
