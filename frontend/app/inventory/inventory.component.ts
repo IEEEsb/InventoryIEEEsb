@@ -25,7 +25,7 @@ export class InventoryComponent implements OnInit {
 
 	transaction(quantity, itemId) {
 		const item = this.items.find(item => item._id.toString() === itemId);
-		if (!confirm(`¿Seguro que quieres comprar ${quantity} ${item.name}`)) return;
+		if (!confirm(`¿Seguro que quieres comprar ${quantity} ${item.name}?`)) return;
 		this.inventoryService.buyItem(itemId, quantity).subscribe(
 			(data) => { },
 			(error) => {
